@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Array;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public class Main{
 		for (int i=0; i<tem.length; i++) {
 			arr[i] = Integer.parseInt(tem[i]);
 		}
-		Deque<pos> q = new LinkedList<>();
+		Deque<pos> q = new ArrayDeque();
 		int _min = Integer.MAX_VALUE;
 		for (int i=0; i<n; i++) {
 			if (arr[i]<_min) {
