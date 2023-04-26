@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Main{
@@ -17,7 +18,12 @@ public class Main{
 		StringBuilder sb = new StringBuilder();
 		int n = Integer.parseInt(br.readLine());
 		int [] arr = new int[10001];
-		PriorityQueue<pos> q = new PriorityQueue<>((o1,o2) -> Integer.compare(o2.x, o1.x));
+		PriorityQueue<pos> q = new PriorityQueue<>(new Comparator<pos>(){
+			@Override
+			public int compare(pos o1, pos o2) {
+				return o2.x - o1.x;
+			}
+		});
 		int result = 0;
 		for (int i=0; i<n; i++) {
 			String [] input = br.readLine().split(" ");
