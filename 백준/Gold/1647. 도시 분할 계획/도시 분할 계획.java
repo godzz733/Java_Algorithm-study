@@ -44,7 +44,7 @@ public class Main{
 		int n = Integer.parseInt(st.nextToken()), m = Integer.parseInt(st.nextToken());
 		parent = new int [n+1];
 		int result = 0;
-		int max = 0;
+		int cnt = 0;
 		PriorityQueue<pos> q = new PriorityQueue<>(new Comparator<pos>() {
 			@Override
 			public int compare(pos o1, pos o2) {
@@ -67,10 +67,12 @@ public class Main{
 			if (find_parent(a) != find_parent(b)) {
 				union_parent(a,b);
 				result += c;
-				max = Math.max(max, c);
+				if (++cnt == n-2) {
+					break;
+				}
 			}
 		}
-		System.out.println(result-max);
+		System.out.println(result);
 
 	}
 }
