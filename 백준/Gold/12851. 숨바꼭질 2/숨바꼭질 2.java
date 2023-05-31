@@ -11,7 +11,7 @@ public class Main {
 	static Deque<Integer> q;
 	
 	public static void subin(int x, int cnt) {
-		if (x<0 || x>200000) return;
+		if (x<0 || x>100000) return;
 		if (x == end) {
 			if (fast == Integer.MAX_VALUE) {
 				fast = cnt;
@@ -34,7 +34,7 @@ public class Main {
 		int start = Integer.parseInt(st.nextToken());
 		end = Integer.parseInt(st.nextToken());
 		fast = Integer.MAX_VALUE;
-		visited = new int [200001];
+		visited = new int [100001];
 		q = new ArrayDeque<>();
 		result = 0;
 		q.add(start);
