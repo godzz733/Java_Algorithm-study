@@ -12,14 +12,15 @@ class pos{
 public class Main {
 	
 
-	static int result, end,fast;
+	static int result, end;
 	static int [] visited;
 	static Deque<pos> q;
 	
 	public static void subin(int x, int cnt) {
-		if (x<0 || x>200000 || visited[x] <= cnt) return;
+		if (x<0 || x>100000 || visited[x] <= cnt) return;
 		if (x == end) {
 			result = Math.min(result, cnt);
+			visited[x] = cnt;
 		} else {
 			q.add(new pos(x,cnt));
 			visited[x] = cnt;
@@ -32,7 +33,7 @@ public class Main {
 		st = new StringTokenizer(br.readLine());
 		int start = Integer.parseInt(st.nextToken());
 		end = Integer.parseInt(st.nextToken());
-		visited = new int [200001];
+		visited = new int [100001];
 		Arrays.fill(visited, Integer.MAX_VALUE);
 		q = new ArrayDeque<>();
 		result = Integer.MAX_VALUE;
