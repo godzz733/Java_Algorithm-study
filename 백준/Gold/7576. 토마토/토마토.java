@@ -1,76 +1,62 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+
+class pos{
+	int x,y,cnt;
+	pos (int x, int y, int cnt){
+		this.x = x;
+		this.y = y;
+		this.cnt = cnt;
+	}
+}
 
 public class Main{
 
-	static int n,m;
-	static int[][] arr;
-	static int[] dx = {1,-1,0,0};
-	static int[] dy = {0,0,1,-1};
-	static boolean [][] visited;
-	static class pos{
-		int x,y,cnt;
-		public pos(int x, int y, int cnt) {
-			this.x = x;
-			this.y = y;
-			this.cnt =cnt;
-		}
-	}	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		m = sc.nextInt();
-		arr = new int[n][m];
-		visited = new boolean[n][m];
-		Queue<pos> q = new LinkedList<>();
-		int result = 0, check=0;
-		for (int i=0; i<m; i++) {
-			for (int j=0; j<n; j++) {
-				arr[j][i] = sc.nextInt();
-				if (arr[j][i]==1) {
-					q.add(new pos(j,i,0));
-					visited[j][i] = true;
+	
+	public static void main(String [] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		st = new StringTokenizer(br.readLine());
+		int m = Integer.parseInt(st.nextToken()), n = Integer.parseInt(st.nextToken());
+		int [][] arr = new int [n][m];
+		Deque<pos> q = new ArrayDeque<pos>();
+		int [] dx = {1,-1,0,0};
+		int [] dy = {0,0,-1,1};
+		int result = 0;
+		boolean [][] visited = new boolean [n][m];
+		for (int i=0; i<n; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j=0; j<m; j++) {
+				arr[i][j] = Integer.parseInt(st.nextToken());
+				if (arr[i][j] == 1) {
+					q.add(new pos(i,j,0));
+					visited[i][j] = true;
 				}
 			}
 		}
-
 		while (!q.isEmpty()) {
 			pos cur = q.poll();
 			int x = cur.x;
 			int y = cur.y;
 			int cnt = cur.cnt;
-			if (cnt>result) {
-				result = cnt;
-			}
+			result= Math.max(result, cnt);
 			for (int i=0; i<4; i++) {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
-				if (nx<0 || nx>=n || ny<0 || ny>=m) {
-					continue;
-				}
-				if (arr[nx][ny]==0 && !visited[nx][ny]) {
-					arr[nx][ny] = 1;
-					q.add(new pos(nx,ny,cnt+1));
-					visited[nx][ny]=true;
-				}
-				
+				if (nx <0 || nx>=n || ny<0 || ny>=m || visited[nx][ny] || arr[nx][ny] == -1) continue;
+				q.add(new pos(nx,ny,cnt+1));
+				visited[nx][ny] = true;
+				arr[nx][ny] = 1;
 			}
 		}
-		for (int i=0; i<m; i++) {
-			for (int j=0; j<n; j++) {
-				if (arr[j][i]==0) {
-					check++;
-					break;
+		for (int i=0; i<n; i++) {
+			for (int j=0; j<m; j++) {
+				if (arr[i][j] == 0) {
+					result = -1;
 				}
 			}
 		}
-		if (check>0) {
-			System.out.println(-1);
-		} else {
-			System.out.println(result);
-		}
-			
-		}
-		
+		System.out.println(result);
+
 	}
+}
