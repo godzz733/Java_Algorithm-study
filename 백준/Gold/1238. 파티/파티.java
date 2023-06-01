@@ -12,6 +12,7 @@ class pos{
 public class Main {
 
 	static int n,m,end;
+	static Reader in = new Reader();
 	static ArrayList<ArrayList<pos>> lst;
 	static int [][] arr;
 	static PriorityQueue<pos> q;
@@ -20,15 +21,13 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st;
-		st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken()); m = Integer.parseInt(st.nextToken()); end = Integer.parseInt(st.nextToken());
+		n = in.nextInt(); m = in.nextInt(); end = in.nextInt();
 		lst = new ArrayList<>();
 		for (int i=0; i<n+1; i++) {
 			lst.add(new ArrayList<pos>());
 		}
 		for (int i=0; i<m; i++) {
-			st = new StringTokenizer(br.readLine());
-			lst.get(Integer.parseInt(st.nextToken())).add(new pos(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+			lst.get(in.nextInt()).add(new pos(in.nextInt(), in.nextInt()));
 		}
 		q = new PriorityQueue<>(new Comparator<pos>() {
 			@Override
@@ -68,6 +67,40 @@ public class Main {
 					q.add(new pos(lst.get(x).get(i).x, cost));
 				}
 			}
+		}
+	}
+	static class Reader {
+		final int SIZE = 1 << 13;
+		byte[] buffer = new byte[SIZE];
+		int index, size;
+
+		int nextInt() throws Exception {
+			int n = 0;
+			byte c;
+			while ((c = read()) <= 32)
+				;
+			boolean neg = c == '-' ? true : false;
+			if (neg)
+				c = read();
+			do
+				n = (n << 3) + (n << 1) + (c & 15);
+			while (isNumber(c = read()));
+			if (neg)
+				return -n;
+			return n;
+		}
+
+		boolean isNumber(byte c) {
+			return 47 < c && c < 58;
+		}
+
+		byte read() throws Exception {
+			if (index == size) {
+				size = System.in.read(buffer, index = 0, SIZE);
+				if (size < 0)
+					buffer[0] = -1;
+			}
+			return buffer[index++];
 		}
 	}
 	
